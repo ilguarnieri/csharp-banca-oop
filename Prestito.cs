@@ -2,12 +2,13 @@
 {
     public class Prestito
     {
-        public int Id { get; set; }
-        public Cliente Intestatario { get; set; }
-        public uint Totale { get; set; }
-        public uint Rata { get; set; }
-        public DateTime DataInizio { get; set; }
-        public DateTime DataFine { get; set; }
+        protected int Id { get; private set; }
+        public Cliente Intestatario { get; private set; }
+        public uint Totale { get; private set; }
+        public uint RateTotali { get; private set; }
+        public uint RatePagate { get; private set; }
+        public DateTime DataInizio { get; private set; }
+        public DateTime DataFine { get; private set; }
 
 
 
