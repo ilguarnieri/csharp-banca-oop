@@ -6,11 +6,28 @@ using System.Threading.Tasks;
 
 namespace csharp_banca_oop
 {
-    internal class Menu
+    public class Menu
     {
-        public static void LogoBanca(string nomeBanca)
+
+        public Banca banca;
+
+        public Menu(Banca banca)
         {
-            Console.WriteLine($"*** {nomeBanca.ToUpper()} ***");
+            this.banca = banca;
+        }
+
+
+        public void LogoBanca()
+        {
+            Console.WriteLine($"*** {this.banca.Nome} ***");
+            Console.WriteLine("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ \n");
+        }
+
+
+
+        public static void HeaderUtente(Cliente cliente)
+        {
+            Console.WriteLine($"*** CONTO DI {cliente.Nome.ToUpper()} {cliente.Cognome.ToUpper()} ***");
             Console.WriteLine("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ \n");
         }
 
@@ -52,11 +69,45 @@ namespace csharp_banca_oop
 
 
 
-        public static void PressAllKey()
+        public static void PressAllKey(string nextStop)
         {
-            Console.WriteLine("Premi qualsiasi tasto per continuare...");
+            Console.WriteLine($"Premi qualsiasi tasto per {nextStop}...");
             Console.ReadKey();
             Console.Clear();
+        }
+
+
+
+
+        public static void Start(Banca banca)
+        {
+            banca.menu.LogoBanca();
+
+            string[] menuStart =
+            {
+                "Aggiungere nuovo cliente",
+                "Lista clienti",
+                "Ricerca cliente",
+                "Ricerca prestiti cliente\n"
+            };
+
+            Menu.StampaMenu(menuStart);
+
+            int choice = Menu.LoopChoice(menuStart.Length);
+
+            switch (choice)
+            {
+                case 1:
+                    banca.AddCliente();
+                    break;
+                case 2:
+                    banca.ListaClienti();
+                    break;
+                case 3:
+                    banca.RicercaCliente();
+                    break;
+            }
+
         }
     }
 }

@@ -57,5 +57,7 @@ banca.clienti.Add(new Cliente("Federico", "Orlando", "FDRRLD83D12L091C", 43500))
 banca.clienti.Add(new Cliente("Antonio", "Verdi", "ATNVRD90R03T096X", 32300));
 banca.clienti.Add(new Cliente("Martina", "Rossi", "MRTRSS97E05S092M", 25000));
 
+banca.prestiti.Add(new Prestito(1, banca.clienti[0], 23000, 48, 0, new DateTime(2021, 10, 10), new DateTime(2025, 10, 10)));
 
-MainMenu.Start(banca);
+
+Menu.Start(banca);

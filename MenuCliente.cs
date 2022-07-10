@@ -6,27 +6,54 @@ using System.Threading.Tasks;
 
 namespace csharp_banca_oop
 {
-    internal class MenuCliente
+    public class MenuCliente : Menu
     {
-
-        public static void Cliente(Banca banca, Cliente cliente)
+        public MenuCliente(Banca banca) : base(banca)
         {
-            Menu.LogoBanca(banca.Nome);
 
-            Console.WriteLine($"CONTO DI {cliente.Nome.ToUpper()} {cliente.Cognome.ToUpper()}\n");
+        }
+
+
+        public void Cliente(Cliente cliente)
+        {
+            Menu.HeaderUtente(cliente);
 
             string[] menuCliente =
             {
+                "Informazioni cliente",
                 "Modifica cliente",
                 "Aggiungi prestito",
                 "Lista prestiti",
-                "Elimina client",
+                "Elimina cliente",
                 "Torna al menù principale\n"
             };
 
             Menu.StampaMenu(menuCliente);
 
             int choice = Menu.LoopChoice(menuCliente.Length);
+
+            switch (choice)
+            {
+                case 1:
+                    cliente.InfoCliente(base.banca);
+                    break;
+                case 2:
+                    cliente.ModificaCliente(base.banca);
+                    break;
+                case 3:
+                    banca.AddPrestito(cliente);
+                    break;
+                case 4:
+
+                    break;
+                case 5:
+
+                    break;
+                case 6:
+                    Console.Clear();
+                    Menu.Start(base.banca);
+                    break;
+            }
         }
     }
 }
