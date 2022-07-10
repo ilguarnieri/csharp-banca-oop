@@ -21,8 +21,10 @@
             Console.Clear();
             Menu.HeaderUtente(this);
 
+            Console.WriteLine($"Nome: {this.Nome}");
+            Console.WriteLine($"Cognome: {this.Cognome}");
             Console.WriteLine($"Codice Fiscale: {this.CodiceFiscale}");
-            Console.WriteLine($"Stipendio annuo: {this.Stipendio}EUR\n");
+            Console.WriteLine($"Stipendio annuo: {this.Stipendio} EUR\n");
 
             Menu.PressAllKey("tornare indietro");
             banca.menuCliente.Cliente(this);
@@ -36,7 +38,7 @@
 
             Console.WriteLine("MODIFICA CLIENTE\n");
             Console.WriteLine("Stipendio annuo");
-            Console.WriteLine($"Valore presente nel sistema: {this.Stipendio}EUR\n");
+            Console.WriteLine($"Valore presente nel sistema: {this.Stipendio} EUR\n");
 
             Console.Write("Nuovo valore: ");
             float nuovoStipendio = float.Parse(Console.ReadLine());

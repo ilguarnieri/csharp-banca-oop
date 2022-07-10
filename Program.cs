@@ -36,14 +36,7 @@ Per i clienti e per i prestiti si vuole stampare un prospetto riassuntivo con tu
 che li caratterizzano in un formato di tipo stringa a piacere.
 
 Bonus:
-visualizzare per ogni cliente, la situazione dei suoi prestiti in formato tabellare. 
-
-
-Nel programma della banca si vuole gestire anche l'apertura di un conto che può essere di due tipi:
-- conto bancario classico: l'utente può prelevare e depositare denaro a piacere. ovviamente non può prelevare denaro se non ne ha
-- nel conto bancario risparmio: l'utente può prelevare soltanto sopra i 1000 euro e può versare al massimo 5000 euro. Ovviamente non può prelevare somme che non ha in deposito.
-in particolare nel conto risparmio può prelevare anche 50€ purchè ci siano almeno 1000 euro.
-
+visualizzare per ogni cliente, la situazione dei suoi prestiti in formato tabellare.
 */
 
 
@@ -57,7 +50,6 @@ banca.clienti.Add(new Cliente("Federico", "Orlando", "FDRRLD83D12L091C", 43500))
 banca.clienti.Add(new Cliente("Antonio", "Verdi", "ATNVRD90R03T096X", 32300));
 banca.clienti.Add(new Cliente("Martina", "Rossi", "MRTRSS97E05S092M", 25000));
 
-banca.prestiti.Add(new Prestito(1, banca.clienti[0], 23000, 48, 0, new DateTime(2021, 10, 10), new DateTime(2025, 10, 10)));
-
+banca.prestiti.Add(new Prestito(154324, banca.clienti[0], 23000, 7, 24610, 29, 848.62, 4, new DateTime(2021, 10, 10), new DateTime(2024, 03, 10)));
 
 Menu.Start(banca);

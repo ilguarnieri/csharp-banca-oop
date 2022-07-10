@@ -74,11 +74,11 @@ namespace csharp_banca_oop
             foreach (Cliente cliente in this.clienti)
             {
                 i++;
-                Console.WriteLine($"{i} - - - - - - - - - - - - - - -");
+                Console.WriteLine($"{i}. - - - - - - - - - - - - - - -");
                 Console.WriteLine($"Nome: {cliente.Nome}");
                 Console.WriteLine($"Cognome: {cliente.Cognome}");
                 Console.WriteLine($"Codice Fiscale: {cliente.CodiceFiscale}");
-                Console.WriteLine($"Stipendio annuo: {cliente.Stipendio}EUR\n");
+                Console.WriteLine($"Stipendio annuo: {cliente.Stipendio} EUR\n");
             }
 
             Console.WriteLine("Seleziona un cliente");
@@ -160,11 +160,18 @@ namespace csharp_banca_oop
             Console.Write("Rate totali: ");
             int rateTotali = byte.Parse(Console.ReadLine());
 
+            Console.Write("Tasso di interesse da applicare: ");
+            byte interesse = byte.Parse(Console.ReadLine());
+
             DateTime dataInizio = DateTime.Now;
 
             DateTime dataFine = this.CalcoloFinePrestito(rateTotali, dataInizio);
 
-            Prestito prestito = new Prestito(randomID, cliente, importo, rateTotali, 0, dataInizio, dataFine);
+            double importoConInteresse = this.ImportoConInteresse(importo, interesse);
+
+            double importoRata = this.ImportoSingolaRata(importoConInteresse, rateTotali);
+
+            Prestito prestito = new Prestito(randomID, cliente, importo, interesse, importoConInteresse, rateTotali, importoRata, 0, dataInizio, dataFine);
 
             return prestito;
         }
@@ -180,7 +187,7 @@ namespace csharp_banca_oop
             Console.Clear();
             Console.WriteLine("PRESTITO CREATO CON SUCCESSO!\n");
             Menu.PressAllKey("continuare");
-            //portare lista prestiti
+            this.ListaPrestiti(cliente);
         }
 
 
@@ -202,6 +209,95 @@ namespace csharp_banca_oop
 
 
 
+        public double ImportoConInteresse(uint importoTotale, byte interesse)
+        {
+            double interessi = interesse / 100.0;
+
+            double importoConInteresse = importoTotale + (importoTotale * interessi);
+
+            return importoConInteresse;
+        }
+
+
+
+        public double ImportoSingolaRata(double importoConInteresse, int rateTotali)
+        {
+
+            double importoRata = System.Math.Round((importoConInteresse / rateTotali), 2);          
+
+            return importoRata;
+        }
+
+
+
+        public double ImportoDovuto(double importoConInteresse, double importoRata, int ratePagate)
+        {
+            double importoPagato = importoRata * ratePagate;
+            double importoDovuto = importoConInteresse - importoPagato;
+
+            return System.Math.Round(importoDovuto);
+        }
+          
+
+
+        public void ListaPrestiti(Cliente cliente)
+        {
+            Console.Clear();
+            Menu.HeaderUtente(cliente);
+
+            Console.WriteLine("LISTA PRESTITI IN CORSO");
+
+            int i = 0;
+            double totPrestiti = 0;
+            int totRate = 0;
+            double importoTotaleDovuto = 0;
+            bool prestitiView = false;
+
+            if(prestiti.Count > 0)
+            {
+                foreach (Prestito prestito in this.prestiti)
+                {
+                    if(prestito.Intestatario == cliente)
+                    {
+                        i++;
+                        prestitiView = true;
+                        double importoDovuto = this.ImportoDovuto(prestito.ImportoConInteresse, prestito.ImportoRata, prestito.RatePagate);
+
+                        Console.WriteLine($"\n{i}. - - - - - - - - - - - - - - -");
+                        Console.WriteLine($"Prestito n.{prestito.Id}");
+                        Console.WriteLine($"Importo: {prestito.Importo} EUR");
+                        Console.WriteLine($"Interesse del {prestito.Interesse}%");
+                        Console.WriteLine($"Importo totale dovuto: {prestito.ImportoConInteresse} EUR");
+                        Console.WriteLine($"Rate totali: {prestito.RateTotali}");
+                        Console.WriteLine($"Importo singola rata: {prestito.ImportoRata} EUR");
+                        Console.WriteLine($"Rate pagate: {prestito.RatePagate}");
+                        Console.WriteLine($"Importo restante: {importoDovuto}");
+                        Console.WriteLine($"Data inizio: {prestito.DataInizio.ToString("d")}");
+                        Console.WriteLine($"Data fine: {prestito.DataFine.ToString("d")}");
+
+                        totPrestiti += prestito.Importo;
+                        totRate += (prestito.RateTotali - prestito.RatePagate);
+                        importoTotaleDovuto += importoDovuto;
+                    }
+                }
+            }
+
+            if (!prestitiView)
+            {
+                Console.WriteLine($"\n\n- - - NON CI SONO PRESTITI IN CORSO - - -\n\n");
+            }
+            else
+            {
+                Console.WriteLine("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
+                Console.WriteLine($"Importo totale dei prestiti concessi: {totPrestiti} EUR");
+                Console.WriteLine($"Totale rate da pagare: {totRate}");
+                Console.WriteLine($"Totale importo dovuto: {importoTotaleDovuto} EUR\n");
+            }            
+
+            Menu.PressAllKey("tornare nel menù del cliente");            
+            Console.Clear();
+            this.menuCliente.Cliente(cliente);
+        }
 
     }
 }

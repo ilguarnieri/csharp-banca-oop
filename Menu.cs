@@ -52,7 +52,7 @@ namespace csharp_banca_oop
 
                 if (String.IsNullOrEmpty(input) || !isNumber)
                 {
-                    input = "0";
+                    input = "-1";
                 }
 
                 choice = Convert.ToByte(input);

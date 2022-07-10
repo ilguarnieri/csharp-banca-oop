@@ -24,7 +24,6 @@ namespace csharp_banca_oop
                 "Modifica cliente",
                 "Aggiungi prestito",
                 "Lista prestiti",
-                "Elimina cliente",
                 "Torna al menù principale\n"
             };
 
@@ -44,12 +43,9 @@ namespace csharp_banca_oop
                     banca.AddPrestito(cliente);
                     break;
                 case 4:
-
+                    banca.ListaPrestiti(cliente);
                     break;
                 case 5:
-
-                    break;
-                case 6:
                     Console.Clear();
                     Menu.Start(base.banca);
                     break;
