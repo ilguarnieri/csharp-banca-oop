@@ -51,6 +51,8 @@ using csharp_banca_oop;
 
 Banca banca = new Banca("BoolBank");
 
+banca.clienti.Add(new Cliente("Test", "Prova", "aaa1", 100000));
+
 banca.clienti.Add(new Cliente("Federico", "Orlando", "FDRRLD83D12L091C", 43500));
 banca.clienti.Add(new Cliente("Antonio", "Verdi", "ATNVRD90R03T096X", 32300));
 banca.clienti.Add(new Cliente("Martina", "Rossi", "MRTRSS97E05S092M", 25000));

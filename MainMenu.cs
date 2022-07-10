@@ -13,11 +13,13 @@ namespace csharp_banca_oop
         {
             Menu.LogoBanca(banca.Nome);
 
-            string[] menuStart = {
+            string[] menuStart =
+            {
                 "Aggiungere nuovo cliente",
                 "Lista clienti",
                 "Ricerca cliente",
-                "Ricerca prestiti cliente\n"};
+                "Ricerca prestiti cliente\n"
+            };
 
             Menu.StampaMenu(menuStart);
 
@@ -29,7 +31,10 @@ namespace csharp_banca_oop
                     banca.AddCliente();
                     break;
                 case 2:
-
+                    banca.ListaClienti();
+                    break;
+                case 3:
+                    banca.RicercaCliente();
                     break;
             }
 

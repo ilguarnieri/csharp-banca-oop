@@ -59,6 +59,69 @@ namespace csharp_banca_oop
 
 
 
+        public void ListaClienti()
+        {
+            Console.Clear();
+            Menu.LogoBanca(this.Nome);
+
+            Console.WriteLine("LISTA CLIENTI\n");
+
+            int i = 0;
+            foreach (Cliente cliente in this.clienti)
+            {
+                i++;
+                Console.WriteLine($"{i} - - - - - - - - - - - - - - -");
+                Console.WriteLine($"Nome: {cliente.Nome}");
+                Console.WriteLine($"Cognome: {cliente.Cognome}");
+                Console.WriteLine($"Codice Fiscale: {cliente.CodiceFiscale}");
+                Console.WriteLine($"Stipendio annuo: {cliente.Stipendio}\n");
+            }
+
+            Console.WriteLine("Seleziona un cliente");
+            int choice = Menu.LoopChoice(clienti.Count);
+
+            Console.Clear();
+            MenuCliente.Cliente(this, clienti[choice - 1]);
+        }
+
+
+
+        public void RicercaCliente()
+        {
+            Console.Clear();
+            Menu.LogoBanca(this.Nome);
+
+            Console.WriteLine("RICERCA CLIENTE\n");
+
+            Console.Write("Codice Fiscale: ");
+            string cf = Console.ReadLine();
+
+            bool checkCliente = false;
+
+            for (int i = 0; i < clienti.Count; i++)
+            {
+                if (cf == clienti[i].CodiceFiscale)
+                {
+                    checkCliente = true;
+                    Console.Clear();
+                    MenuCliente.Cliente(this, clienti[i]);
+                    break;
+                }
+            }
+
+            if (!checkCliente)
+            {
+                Console.Clear();
+                Console.WriteLine("CLIENTE NON TROVATO!\n");
+                Menu.PressAllKey();
+                MainMenu.Start(this);
+            }
+
+
+        }
+
+
+
 
 
     }
